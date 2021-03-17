@@ -105,9 +105,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>fr.epsi.gostyleapi.GostyleApiApplication</mainClass>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
