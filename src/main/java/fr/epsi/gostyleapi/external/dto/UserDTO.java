@@ -1,34 +1,25 @@
-package fr.epsi.gostyleapi.external.entities;
+package fr.epsi.gostyleapi.external.dto;
 
-import javax.persistence.*;
 import java.util.Objects;
-import java.util.UUID;
 
-@Entity
-@Table(name = "user", schema = "public")
-public class UserEntity {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
     private String nom;
     private String prenom;
     private String pseudo;
     private String mail;
     private String mdp;
 
-    @Id
-    @Column(name = "id")
-    public UUID getId() {
-        return id;
+    public UserDTO() {}
+
+    public UserDTO(String nom, String prenom, String pseudo, String mail, String mdp) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.pseudo = pseudo;
+        this.mail = mail;
+        this.mdp = mdp;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "nom")
     public String getNom() {
         return nom;
     }
@@ -37,8 +28,6 @@ public class UserEntity {
         this.nom = nom;
     }
 
-    @Basic
-    @Column(name = "prenom")
     public String getPrenom() {
         return prenom;
     }
@@ -47,8 +36,6 @@ public class UserEntity {
         this.prenom = prenom;
     }
 
-    @Basic
-    @Column(name = "pseudo")
     public String getPseudo() {
         return pseudo;
     }
@@ -57,8 +44,6 @@ public class UserEntity {
         this.pseudo = pseudo;
     }
 
-    @Basic
-    @Column(name = "mail")
     public String getMail() {
         return mail;
     }
@@ -67,8 +52,6 @@ public class UserEntity {
         this.mail = mail;
     }
 
-    @Basic
-    @Column(name = "mdp")
     public String getMdp() {
         return mdp;
     }
@@ -81,17 +64,16 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return id == that.id &&
-                Objects.equals(nom, that.nom) &&
-                Objects.equals(prenom, that.prenom) &&
-                Objects.equals(pseudo, that.pseudo) &&
-                Objects.equals(mail, that.mail) &&
-                Objects.equals(mdp, that.mdp);
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(getNom(), userDTO.getNom()) &&
+                Objects.equals(getPrenom(), userDTO.getPrenom()) &&
+                Objects.equals(getPseudo(), userDTO.getPseudo()) &&
+                Objects.equals(getMail(), userDTO.getMail()) &&
+                Objects.equals(getMdp(), userDTO.getMdp());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, prenom, pseudo, mail, mdp);
+        return Objects.hash(getNom(), getPrenom(), getPseudo(), getMail(), getMdp());
     }
 }

@@ -1,34 +1,28 @@
 package fr.epsi.gostyleapi.external.entities;
 
-import fr.epsi.gostyleapi.business.Categorie;
-import fr.epsi.gostyleapi.business.User;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table(name = "coupon", schema = "gostyle", catalog = "")
+@Table(name = "coupon", schema = "public")
 public class CouponEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private UUID id;
     private String emplacement;
-    private int nbUtilisation;
+    private Integer nb_utilisation;
     private String libelle;
-    private Categorie categorie;
-    private int pourReduc;
-    private User users;
-    private int pourcReduc;
+    private Integer pourc_reduc;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -43,13 +37,13 @@ public class CouponEntity {
     }
 
     @Basic
-    @Column(name = "nbUtilisation")
-    public int getNbUtilisation() {
-        return nbUtilisation;
+    @Column(name = "nb_utilisation")
+    public Integer getNbUtilisation() {
+        return nb_utilisation;
     }
 
-    public void setNbUtilisation(int nbUtilisation) {
-        this.nbUtilisation = nbUtilisation;
+    public void setNbUtilisation(Integer nbUtilisation) {
+        this.nb_utilisation = nbUtilisation;
     }
 
     @Basic
@@ -63,13 +57,13 @@ public class CouponEntity {
     }
 
     @Basic
-    @Column(name = "pourcReduc")
-    public int getPourcReduc() {
-        return pourcReduc;
+    @Column(name = "pourc_reduc")
+    public Integer getPourcReduc() {
+        return pourc_reduc;
     }
 
-    public void setPourcReduc(int pourcReduc) {
-        this.pourcReduc = pourcReduc;
+    public void setPourcReduc(Integer pourc_reduc) {
+        this.pourc_reduc = pourc_reduc;
     }
 
     @Override
@@ -78,14 +72,14 @@ public class CouponEntity {
         if (o == null || getClass() != o.getClass()) return false;
         CouponEntity that = (CouponEntity) o;
         return id == that.id &&
-                nbUtilisation == that.nbUtilisation &&
-                pourcReduc == that.pourcReduc &&
+                nb_utilisation == that.nb_utilisation &&
+                pourc_reduc == that.pourc_reduc &&
                 Objects.equals(emplacement, that.emplacement) &&
                 Objects.equals(libelle, that.libelle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, emplacement, nbUtilisation, libelle, pourcReduc);
+        return Objects.hash(id, emplacement, nb_utilisation, libelle, pourc_reduc);
     }
 }
