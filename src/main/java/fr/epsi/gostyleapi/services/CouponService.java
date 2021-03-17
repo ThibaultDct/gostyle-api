@@ -1,15 +1,12 @@
 package fr.epsi.gostyleapi.services;
 
-import fr.epsi.gostyleapi.business.Coupon;
 import fr.epsi.gostyleapi.external.dto.CouponDTO;
 import fr.epsi.gostyleapi.external.entities.CouponEntity;
 import fr.epsi.gostyleapi.external.repositories.CouponsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -20,6 +17,8 @@ import java.util.UUID;
 @Service
 public class CouponService {
 
+    private Logger LOGGER = LoggerFactory.getLogger(CouponService.class);
+
     @Autowired
     private CouponsRepository couponsRepository;
 
@@ -27,9 +26,9 @@ public class CouponService {
         CouponEntity result = new CouponEntity();
         result.setId(UUID.randomUUID());
         result.setEmplacement(dto.getEmplacement());
-        result.setNbUtilisation(dto.getNb_utilisation());
+        result.setNb_utilisation(dto.getNb_utilisation());
         result.setLibelle(dto.getLibelle());
-        result.setPourcReduc(dto.getPourc_reduc());
+        result.setPourc_reduc(dto.getPourc_reduc());
         return result;
     }
 
@@ -51,7 +50,9 @@ public class CouponService {
     }
 
     public CouponEntity create(CouponDTO dto){
-        return couponsRepository.save(convertCouponDtoToCouponEntity(dto));
+        CouponEntity toCreate = convertCouponDtoToCouponEntity(dto);
+        LOGGER.info("CREATE coupon {}", toCreate.toString());
+        return couponsRepository.save(toCreate);
     }
 
     public CouponEntity patch(CouponDTO dto, UUID uuid) throws EntityNotFoundException {
@@ -59,10 +60,11 @@ public class CouponService {
         Optional<CouponEntity> query = couponsRepository.findById(uuid);
         if (query.isPresent()){
             toPatch = query.get();
+            LOGGER.info("PATCH coupon {} : {}", toPatch.getId(), dto.toString());
             toPatch.setEmplacement(dto.getEmplacement());
-            toPatch.setNbUtilisation(dto.getNb_utilisation());
+            toPatch.setNb_utilisation(dto.getNb_utilisation());
             toPatch.setLibelle(dto.getLibelle());
-            toPatch.setPourcReduc(dto.getPourc_reduc());
+            toPatch.setPourc_reduc(dto.getPourc_reduc());
             return couponsRepository.save(toPatch);
         } else {
             throw new EntityNotFoundException("No entities to patch found with given id");
@@ -70,9 +72,12 @@ public class CouponService {
     }
 
     public void delete(UUID uuid) throws EntityNotFoundException {
+        CouponEntity toDelete;
         Optional<CouponEntity> query = couponsRepository.findById(uuid);
         if (query.isPresent()){
-            couponsRepository.delete(query.get());
+            toDelete = query.get();
+            LOGGER.info("DELETE coupon {}", toDelete.toString());
+            couponsRepository.delete(toDelete);
         } else {
             throw new EntityNotFoundException("No entity to delete found with given id");
         }

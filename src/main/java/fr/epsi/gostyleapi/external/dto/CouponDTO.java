@@ -65,4 +65,19 @@ public class CouponDTO {
     public int hashCode() {
         return Objects.hash(getEmplacement(), getNb_utilisation(), getLibelle(), getPourc_reduc());
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ 'emplacement': '");
+        sb.append(this.getEmplacement());
+        sb.append("', 'nb_utilisation': ");
+        sb.append(this.getNb_utilisation());
+        sb.append(", 'libelle': '");
+        sb.append(this.getLibelle());
+        sb.append("', 'pourc_reduc': ");
+        sb.append(this.getPourc_reduc());
+        sb.append(" }");
+        return sb.toString();
+    }
 }

@@ -38,11 +38,11 @@ public class CouponEntity {
 
     @Basic
     @Column(name = "nb_utilisation")
-    public Integer getNbUtilisation() {
+    public Integer getNb_utilisation() {
         return nb_utilisation;
     }
 
-    public void setNbUtilisation(Integer nbUtilisation) {
+    public void setNb_utilisation(Integer nbUtilisation) {
         this.nb_utilisation = nbUtilisation;
     }
 
@@ -58,11 +58,11 @@ public class CouponEntity {
 
     @Basic
     @Column(name = "pourc_reduc")
-    public Integer getPourcReduc() {
+    public Integer getPourc_reduc() {
         return pourc_reduc;
     }
 
-    public void setPourcReduc(Integer pourc_reduc) {
+    public void setPourc_reduc(Integer pourc_reduc) {
         this.pourc_reduc = pourc_reduc;
     }
 
@@ -81,5 +81,22 @@ public class CouponEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, emplacement, nb_utilisation, libelle, pourc_reduc);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ 'id': '");
+        sb.append(this.getId());
+        sb.append("', 'emplacement': '");
+        sb.append(this.getEmplacement());
+        sb.append("', 'nb_utilisation': ");
+        sb.append(this.getNb_utilisation());
+        sb.append(", 'libelle': '");
+        sb.append(this.getLibelle());
+        sb.append("', 'pourc_reduc': ");
+        sb.append(this.getPourc_reduc());
+        sb.append(" }");
+        return sb.toString();
     }
 }
