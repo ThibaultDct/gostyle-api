@@ -21,7 +21,7 @@ class CouponServiceTest {
     private final CouponService couponService = new CouponService();
 
     @Test
-    void convertCouponDtoToCouponEntity() {
+    void testConvertCouponDtoToCouponEntity() {
         CouponEntity to;
         CouponDTO from = new CouponDTO("Nantes", 5, "Promotion", 10);
 
@@ -34,7 +34,7 @@ class CouponServiceTest {
     }
 
     @Test
-    void convertCouponDtosToCouponEntities() {
+    void testConvertCouponDtosToCouponEntities() {
         List<CouponEntity> to;
         List<CouponDTO> froms = new ArrayList<>();
         CouponDTO from1 = new CouponDTO("Nantes", 5, "Promotion", 10);

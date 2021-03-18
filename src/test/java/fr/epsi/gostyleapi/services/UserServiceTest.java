@@ -28,7 +28,7 @@ class UserServiceTest {
     private final UserService userService = new UserService(bCryptPasswordEncoder);
 
     @Test
-    void convertUserDtoToUserEntity() {
+    void testConvertUserDtoToUserEntity() {
         UserEntity to;
         UserDTO from = new UserDTO("nom", "prenom", "pseudo", "mail", "mdp");
 
@@ -42,7 +42,7 @@ class UserServiceTest {
     }
 
     @Test
-    void convertUserDtosToUserEntities() {
+    void testConvertUserDtosToUserEntities() {
         List<UserEntity> to;
         List<UserDTO> froms = new ArrayList<>();
         UserDTO from1 = new UserDTO("nom", "prenom", "pseudo", "mail", "mdp");

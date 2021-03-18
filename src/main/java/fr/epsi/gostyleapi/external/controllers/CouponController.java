@@ -1,6 +1,5 @@
 package fr.epsi.gostyleapi.external.controllers;
 
-import fr.epsi.gostyleapi.business.Coupon;
 import fr.epsi.gostyleapi.external.dto.CouponDTO;
 import fr.epsi.gostyleapi.external.entities.CouponEntity;
 import fr.epsi.gostyleapi.services.CouponService;
