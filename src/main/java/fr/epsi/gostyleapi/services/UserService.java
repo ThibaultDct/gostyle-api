@@ -54,6 +54,11 @@ public class UserService {
         return query.orElse(null);
     }
 
+    public UserEntity getByPseudo(String pseudo){
+        Optional<UserEntity> query = usersRepository.findByPseudo(pseudo);
+        return query.orElse(null);
+    }
+
     public UserEntity create(UserDTO dto) { return usersRepository.save(convertUserDtoToUserEntity(dto)); }
 
     public UserEntity patch(UserDTO dto, UUID uuid) throws EntityNotFoundException {

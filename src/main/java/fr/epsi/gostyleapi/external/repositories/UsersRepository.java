@@ -12,5 +12,6 @@ import java.util.UUID;
 public interface UsersRepository extends JpaRepository<UserEntity, UUID> {
     List<UserEntity> findAll();
     Optional<UserEntity> findById(UUID id);
+    Optional<UserEntity> findByPseudo(String pseudo);
     void deleteById(UUID id);
 }
