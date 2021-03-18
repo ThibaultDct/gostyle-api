@@ -24,6 +24,10 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder){
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
     public UserEntity convertUserDtoToUserEntity(UserDTO dto){
         UserEntity result = new UserEntity();
         result.setId(UUID.randomUUID());
