@@ -10,16 +10,18 @@ public class QueryCouponDTO {
     private Integer pourc_reduc;
     private String libelle;
     private String date;
+    private boolean is_used;
 
     public QueryCouponDTO() {
     }
 
-    public QueryCouponDTO(UUID id, String code, Integer pourc_reduc, String libelle, String date) {
+    public QueryCouponDTO(UUID id, String code, Integer pourc_reduc, String libelle, String date, boolean is_used) {
         this.id = id;
         this.code = code;
         this.pourc_reduc = pourc_reduc;
         this.libelle = libelle;
         this.date = date;
+        this.is_used = is_used;
     }
 
     public UUID getId() {
@@ -62,12 +64,21 @@ public class QueryCouponDTO {
         this.date = date;
     }
 
+    public boolean isIs_used() {
+        return is_used;
+    }
+
+    public void setIs_used(boolean is_used) {
+        this.is_used = is_used;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QueryCouponDTO that = (QueryCouponDTO) o;
-        return Objects.equals(getId(), that.getId()) &&
+        return isIs_used() == that.isIs_used() &&
+                Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getCode(), that.getCode()) &&
                 Objects.equals(getPourc_reduc(), that.getPourc_reduc()) &&
                 Objects.equals(getLibelle(), that.getLibelle()) &&
@@ -76,6 +87,6 @@ public class QueryCouponDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCode(), getPourc_reduc(), getLibelle(), getDate());
+        return Objects.hash(getId(), getCode(), getPourc_reduc(), getLibelle(), getDate(), isIs_used());
     }
 }

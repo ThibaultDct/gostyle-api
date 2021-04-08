@@ -60,6 +60,7 @@ public class UserCouponService {
         result.setLibelle(coupon.getLibelle());
         result.setPourc_reduc(coupon.getPourc_reduc());
         result.setDate(date);
+        result.setIs_used(userCoupon.isIs_used());
 
         return result;
     }
