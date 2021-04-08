@@ -106,11 +106,11 @@ public class UserCouponController {
         }
     }
 
-    @GetMapping(path = "/user_coupons/addToUser/{coupon_id}/{user_id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> create(@PathVariable(value="coupon_id") UUID coupon_id, @PathVariable(value="user_id") UUID user_id){
-        if (userService.getById(user_id) != null && couponService.getById(coupon_id) != null) {
+    @GetMapping(path = "/user_coupons/addToUser")
+    public ResponseEntity<String> create(@RequestParam String coupon_id, @RequestParam String user_id){
+        if (userService.getById(UUID.fromString(user_id)) != null && couponService.getById(UUID.fromString(coupon_id)) != null) {
             try {
-                UserCouponEntity created = userCouponService.assign(coupon_id, user_id);
+                UserCouponEntity created = userCouponService.assign(UUID.fromString(coupon_id), UUID.fromString(user_id));
                 URI uri = URI.create(String.format("/user_coupons/%s", created.getId()));
                 return ResponseEntity.created(uri).build();
             } catch (Exception e) {

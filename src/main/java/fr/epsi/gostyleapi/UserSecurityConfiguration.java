@@ -59,7 +59,7 @@ public class UserSecurityConfiguration extends WebSecurityConfigurerAdapter impl
                 .antMatchers("/api-docs/").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/user_coupons/addToUser/**").permitAll()
+                .antMatchers("/user_coupons/addToUser**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
