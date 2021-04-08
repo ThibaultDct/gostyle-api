@@ -149,6 +149,15 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.6</version>
+				<configuration>
+					<excludes>
+						<exclude>fr.epsi.gostyleapi.controllers</exclude>
+						<exclude>fr.epsi.gostyleapi.services.auth</exclude>
+						<exclude>fr.epsi.gostyleapi.external.repositories</exclude>
+						<exclude>fr.epsi.gostyleapi.external.controllers</exclude>
+						<exclude>fr.epsi.gostyleapi.external.dto</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>coverage-initialize</id>
