@@ -1,8 +1,6 @@
 package fr.epsi.gostyleapi.services;
 
-import fr.epsi.gostyleapi.external.dto.CouponDTO;
 import fr.epsi.gostyleapi.external.dto.UserDTO;
-import fr.epsi.gostyleapi.external.entities.CouponEntity;
 import fr.epsi.gostyleapi.external.entities.UserEntity;
 import fr.epsi.gostyleapi.external.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,9 +1,7 @@
 package fr.epsi.gostyleapi.services;
 
 import fr.epsi.gostyleapi.external.dto.CategorieDTO;
-import fr.epsi.gostyleapi.external.dto.CouponDTO;
 import fr.epsi.gostyleapi.external.entities.CategorieEntity;
-import fr.epsi.gostyleapi.external.entities.CouponEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

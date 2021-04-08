@@ -5,6 +5,7 @@ import fr.epsi.gostyleapi.external.dto.JwtResponseDTO;
 import fr.epsi.gostyleapi.services.auth.JwtTokenUtil;
 import fr.epsi.gostyleapi.services.auth.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,7 +32,13 @@ public class JwtAuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO authenticationRequest) throws Exception {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        try {
+            authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        } catch (DisabledException de) {
+            return ResponseEntity.status(HttpStatus.LOCKED).build();
+        } catch (BadCredentialsException bce) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponseDTO(token));
