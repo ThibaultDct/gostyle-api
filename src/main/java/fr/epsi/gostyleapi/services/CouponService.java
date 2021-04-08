@@ -25,6 +25,7 @@ public class CouponService {
     public CouponEntity convertCouponDtoToCouponEntity(CouponDTO dto){
         CouponEntity result = new CouponEntity();
         result.setId(UUID.randomUUID());
+        result.setCode(dto.getCode());
         result.setEmplacement(dto.getEmplacement());
         result.setNb_utilisation(dto.getNb_utilisation());
         result.setLibelle(dto.getLibelle());

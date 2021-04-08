@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class CouponDTO {
 
+    private String code;
     private String emplacement;
     private Integer nb_utilisation;
     private String libelle;
@@ -11,11 +12,20 @@ public class CouponDTO {
 
     public CouponDTO() {}
 
-    public CouponDTO(String emplacement, Integer nb_utilisation, String libelle, Integer pourc_reduc) {
+    public CouponDTO(String code, String emplacement, Integer nb_utilisation, String libelle, Integer pourc_reduc) {
+        this.code = code;
         this.emplacement = emplacement;
         this.nb_utilisation = nb_utilisation;
         this.libelle = libelle;
         this.pourc_reduc = pourc_reduc;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getEmplacement() {
@@ -55,7 +65,8 @@ public class CouponDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CouponDTO couponDTO = (CouponDTO) o;
-        return Objects.equals(getEmplacement(), couponDTO.getEmplacement()) &&
+        return Objects.equals(getCode(), couponDTO.getCode()) &&
+                Objects.equals(getEmplacement(), couponDTO.getEmplacement()) &&
                 Objects.equals(getNb_utilisation(), couponDTO.getNb_utilisation()) &&
                 Objects.equals(getLibelle(), couponDTO.getLibelle()) &&
                 Objects.equals(getPourc_reduc(), couponDTO.getPourc_reduc());
@@ -63,13 +74,15 @@ public class CouponDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmplacement(), getNb_utilisation(), getLibelle(), getPourc_reduc());
+        return Objects.hash(getCode(), getEmplacement(), getNb_utilisation(), getLibelle(), getPourc_reduc());
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("{ 'emplacement': '");
+        sb.append("{ 'code': '");
+        sb.append(this.getCode());
+        sb.append(", 'emplacement': '");
         sb.append(this.getEmplacement());
         sb.append("', 'nb_utilisation': ");
         sb.append(this.getNb_utilisation());

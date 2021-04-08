@@ -11,6 +11,7 @@ public class CouponEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    private String code;
     private String emplacement;
     private Integer nb_utilisation;
     private String libelle;
@@ -24,6 +25,16 @@ public class CouponEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "code")
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Basic
@@ -88,6 +99,8 @@ public class CouponEntity {
         StringBuilder sb = new StringBuilder();
         sb.append("{ 'id': '");
         sb.append(this.getId());
+        sb.append("', 'code': '");
+        sb.append(this.getCode());
         sb.append("', 'emplacement': '");
         sb.append(this.getEmplacement());
         sb.append("', 'nb_utilisation': ");

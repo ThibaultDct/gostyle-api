@@ -23,10 +23,11 @@ class CouponServiceTest {
     @Test
     void testConvertCouponDtoToCouponEntity() {
         CouponEntity to;
-        CouponDTO from = new CouponDTO("Nantes", 5, "Promotion", 10);
+        CouponDTO from = new CouponDTO("CODE1", "Nantes", 5, "Promotion", 10);
 
         to = couponService.convertCouponDtoToCouponEntity(from);
 
+        assertEquals(to.getCode(), from.getCode());
         assertEquals(to.getEmplacement(), from.getEmplacement());
         assertEquals(to.getNb_utilisation(), from.getNb_utilisation());
         assertEquals(to.getLibelle(), from.getLibelle());
@@ -37,8 +38,8 @@ class CouponServiceTest {
     void testConvertCouponDtosToCouponEntities() {
         List<CouponEntity> to;
         List<CouponDTO> froms = new ArrayList<>();
-        CouponDTO from1 = new CouponDTO("Nantes", 5, "Promotion", 10);
-        CouponDTO from2 = new CouponDTO("Le Mans", 6, "Promotion 2", 20);
+        CouponDTO from1 = new CouponDTO("CODE1", "Nantes", 5, "Promotion", 10);
+        CouponDTO from2 = new CouponDTO("CODE2", "Le Mans", 6, "Promotion 2", 20);
         froms.add(from1);
         froms.add(from2);
 
@@ -46,11 +47,13 @@ class CouponServiceTest {
 
         assertEquals(2, to.size());
         // First item
+        assertEquals(to.get(0).getCode(), froms.get(0).getCode());
         assertEquals(to.get(0).getEmplacement(), froms.get(0).getEmplacement());
         assertEquals(to.get(0).getNb_utilisation(), froms.get(0).getNb_utilisation());
         assertEquals(to.get(0).getLibelle(), froms.get(0).getLibelle());
         assertEquals(to.get(0).getPourc_reduc(), froms.get(0).getPourc_reduc());
         // Second item
+        assertEquals(to.get(1).getCode(), froms.get(1).getCode());
         assertEquals(to.get(1).getEmplacement(), froms.get(1).getEmplacement());
         assertEquals(to.get(1).getNb_utilisation(), froms.get(1).getNb_utilisation());
         assertEquals(to.get(1).getLibelle(), froms.get(1).getLibelle());
