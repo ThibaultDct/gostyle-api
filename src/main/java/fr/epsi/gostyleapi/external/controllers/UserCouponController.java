@@ -1,5 +1,6 @@
 package fr.epsi.gostyleapi.external.controllers;
 
+import fr.epsi.gostyleapi.external.dto.QueryCouponDTO;
 import fr.epsi.gostyleapi.external.dto.UserCouponDTO;
 import fr.epsi.gostyleapi.external.entities.UserCouponEntity;
 import fr.epsi.gostyleapi.services.CouponService;
@@ -73,6 +74,17 @@ public class UserCouponController {
             results = userCouponService.getByCouponId(uuid);
         } catch (Exception e) {
             LOGGER.error("Unable to retrieve users of coupon {} : {}", uuid, e.getMessage());
+        }
+        return results;
+    }
+
+    @GetMapping("/user_coupons/all/{uuid}")
+    public List<QueryCouponDTO> getAllFromUser(@PathVariable(value="uuid") UUID uuid){
+        List<QueryCouponDTO> results = new ArrayList<>();
+        try {
+            results = userCouponService.getAllCouponsFromUser(uuid);
+        } catch (Exception e) {
+            LOGGER.error("Unable to retrieve formatted coupons of {} : {}", uuid, e.getMessage());
         }
         return results;
     }

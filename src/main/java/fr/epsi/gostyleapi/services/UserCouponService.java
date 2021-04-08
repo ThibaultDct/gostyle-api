@@ -1,6 +1,7 @@
 package fr.epsi.gostyleapi.services;
 
 import fr.epsi.gostyleapi.external.dto.CouponDTO;
+import fr.epsi.gostyleapi.external.dto.QueryCouponDTO;
 import fr.epsi.gostyleapi.external.dto.UserCouponDTO;
 import fr.epsi.gostyleapi.external.entities.CouponEntity;
 import fr.epsi.gostyleapi.external.entities.UserCouponEntity;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,9 @@ public class UserCouponService {
 
     @Autowired
     private UserCouponRepository userCouponRepository;
+
+    @Autowired
+    private CouponsRepository couponsRepository;
 
     public UserCouponEntity convertUserCouponDtoToUserCouponEntity(UserCouponDTO dto){
         UserCouponEntity result = new UserCouponEntity();
@@ -44,6 +50,20 @@ public class UserCouponService {
         return result;
     }
 
+    public QueryCouponDTO convertToQueryCouponDto(UserCouponEntity userCoupon, CouponEntity coupon){
+        QueryCouponDTO result = new QueryCouponDTO();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = dateFormat.format(userCoupon.getValidity());
+
+        result.setId(coupon.getId());
+        result.setCode(coupon.getCode());
+        result.setLibelle(coupon.getLibelle());
+        result.setPourc_reduc(coupon.getPourc_reduc());
+        result.setDate(date);
+
+        return result;
+    }
+
     public List<UserCouponEntity> getAll(){
         return userCouponRepository.findAll();
     }
@@ -59,6 +79,18 @@ public class UserCouponService {
 
     public List<UserCouponEntity> getByCouponId(UUID uuid){
         return userCouponRepository.findByCouponId(uuid);
+    }
+
+    public List<QueryCouponDTO> getAllCouponsFromUser(UUID uuid){
+        List<UserCouponEntity> relations = getByUserId(uuid);
+        List<QueryCouponDTO> coupons = new ArrayList<>();
+
+        relations.forEach(relation -> {
+            CouponEntity coupon = couponsRepository.findById(relation.getCouponId()).get();
+            coupons.add(convertToQueryCouponDto(relation, coupon));
+        });
+
+        return coupons;
     }
 
     public UserCouponEntity create(UserCouponDTO dto){
