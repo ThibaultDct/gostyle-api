@@ -47,6 +47,17 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/users/byPseudo/{pseudo}")
+    public UserEntity getByPseudo(@PathVariable(value="pseudo") String pseudo){
+        UserEntity result = new UserEntity();
+        try {
+            result = userService.getByPseudo(pseudo);
+        } catch (Exception e) {
+            LOGGER.error("Unable to retrieve user with pseudo {} : {}", pseudo, e.getMessage());
+        }
+        return result;
+    }
+
     @PostMapping(path = "/users", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> create(@RequestBody UserDTO dto){
         try {
