@@ -16,10 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserCouponService {
@@ -98,6 +95,21 @@ public class UserCouponService {
         UserCouponEntity toCreate = convertUserCouponDtoToUserCouponEntity(dto);
         LOGGER.info("CREATE user coupon {}", toCreate.toString());
         return userCouponRepository.save(toCreate);
+    }
+
+    public UserCouponEntity assign(UUID coupon_id, UUID user_id){
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.MONTH, 2);
+        Date expiration = c.getTime();
+
+        UserCouponEntity toAssign = convertUserCouponDtoToUserCouponEntity(
+                new UserCouponDTO(user_id, coupon_id, expiration, false)
+        );
+        LOGGER.info("ASSIGN user {} coupon {}", user_id, coupon_id);
+
+        return userCouponRepository.save(toAssign);
     }
 
     public UserCouponEntity patch(UserCouponDTO dto, UUID uuid) throws EntityNotFoundException {

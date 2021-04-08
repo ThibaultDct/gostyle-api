@@ -106,6 +106,23 @@ public class UserCouponController {
         }
     }
 
+    @GetMapping(path = "/user_coupons/addToUser/{coupon_id}/{user_id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<String> create(@PathVariable(value="coupon_id") UUID coupon_id, @PathVariable(value="user_id") UUID user_id){
+        if (userService.getById(user_id) != null && couponService.getById(coupon_id) != null) {
+            try {
+                UserCouponEntity created = userCouponService.assign(coupon_id, user_id);
+                URI uri = URI.create(String.format("/user_coupons/%s", created.getId()));
+                return ResponseEntity.created(uri).build();
+            } catch (Exception e) {
+                LOGGER.error("Unable to create new user coupon : {}", e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } else {
+            LOGGER.error("Unable to create new user coupon : given user or coupon does not exist");
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PatchMapping(path ="/user_coupons/{uuid}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> patch(@RequestBody UserCouponDTO dto, @PathVariable(value="uuid") UUID uuid){
         try {
